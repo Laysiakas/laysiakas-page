@@ -9,8 +9,13 @@ function fmtEUR(v: number) {
   return new Intl.NumberFormat("lt-LT", { style: "currency", currency: "EUR" }).format(v);
 }
 
-export default async function ProductPage({ params }: { params: { sku: string } }) {
-  const item = await getProductBySku(params.sku);
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ sku: string }>;
+}) {
+  const { sku } = await params;             // 👈 IMPORTANT
+  const item = await getProductBySku(sku);
 
   if (!item) {
     return (
@@ -37,13 +42,11 @@ export default async function ProductPage({ params }: { params: { sku: string } 
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-10">
-      {/* Back link above the content block */}
       <Link href="/shop" className="inline-block mb-6 text-sm underline text-muted-foreground">
         ← Grįžti atgal
       </Link>
 
       <div className="grid md:grid-cols-2 gap-10">
-        {/* Image */}
         <div className="relative w-full overflow-hidden rounded-2xl border">
           <div className="relative aspect-[3/4]">
             <Image
@@ -56,7 +59,6 @@ export default async function ProductPage({ params }: { params: { sku: string } 
           </div>
         </div>
 
-        {/* Details */}
         <section>
           <h1 className="text-3xl font-semibold">{item.title}</h1>
           <div className="mt-1 text-sm text-muted-foreground">SKU: {item.sku}</div>
