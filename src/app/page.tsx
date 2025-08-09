@@ -74,12 +74,52 @@ export default function Page() {
           <CardHeader><CardTitle>Susisiekime</CardTitle></CardHeader>
           <CardContent>
             <form onSubmit={submit} className="grid md:grid-cols-3 gap-3">
-              <Input placeholder="Vardas" value={name} onChange={e => setName(e.target.value)} className="rounded-xl" />
-              <Input type="email" placeholder="El. paštas" value={email} onChange={e => setEmail(e.target.value)} className="rounded-xl" />
+              {/* Vizuškai paslėptos etiketės dėl a11y */}
+              <label htmlFor="contact-name" className="sr-only">Vardas</label>
+              <Input
+                id="contact-name"
+                name="name"
+                placeholder="Vardas"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="rounded-xl"
+                autoComplete="name"
+                required
+              />
+
+              <label htmlFor="contact-email" className="sr-only">El. paštas</label>
+              <Input
+                id="contact-email"
+                name="email"
+                type="email"
+                placeholder="El. paštas"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="rounded-xl"
+                autoComplete="email"
+                required
+              />
+
               <Button type="submit" className="rounded-xl">Siųsti</Button>
-              <Textarea placeholder="Trumpai apie projektą" value={msg} onChange={e => setMsg(e.target.value)} className="md:col-span-3 rounded-xl" />
-              {ok && <p className="text-sm text-green-600 md:col-span-3">Gauta! Susisieksiu kuo greičiau.</p>}
+
+              <label htmlFor="contact-message" className="sr-only">Trumpai apie projektą</label>
+              <Textarea
+                id="contact-message"
+                name="message"
+                placeholder="Trumpai apie projektą"
+                value={msg}
+                onChange={(e) => setMsg(e.target.value)}
+                className="md:col-span-3 rounded-xl"
+                rows={4}
+              />
+
+              {ok && (
+                <p className="text-sm text-green-600 md:col-span-3">
+                  Gauta! Susisieksiu kuo greičiau.
+                </p>
+              )}
             </form>
+
           </CardContent>
         </Card>
       </section>
