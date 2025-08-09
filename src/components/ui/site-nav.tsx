@@ -6,7 +6,6 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "E-shop demo" },
   { href: "/services", label: "Paslaugos" },
-  { href: "/cafe", label: "Kavinė" },
 ];
 
 export default function SiteNav() {

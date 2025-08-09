@@ -53,15 +53,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   >
                     <Link href="/services">Paslaugos</Link>
                   </Button>
-
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-xl px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-base"
-                  >
-                    <Link href="/cafe">Kavinė</Link>
-                  </Button>
-
                   <CartButton />
                 </div>
               </nav>
