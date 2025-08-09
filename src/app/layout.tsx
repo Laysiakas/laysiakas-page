@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,11 +31,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background text-foreground`}>
         <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
           <nav className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
-            <a href="/" className="text-sm font-semibold tracking-wide">laysiakas</a>
+            <Link href="/" className="text-sm font-semibold tracking-wide">laysiakas</Link>
             <div className="ml-auto flex items-center gap-2">
-              <a href="/shop" className="rounded-xl px-3 py-1.5 text-sm border hover:bg-white/10">E-shop demo</a>
-              <a href="/services" className="rounded-xl px-3 py-1.5 text-sm border hover:bg-white/10">Paslaugos</a>
-              <a href="/cafe" className="rounded-xl px-3 py-1.5 text-sm border hover:bg-white/10">Kavinė</a>
+              <Link href="/shop" className="rounded-xl px-3 py-1.5 text-sm border hover:bg-white/10">E-shop demo</Link>
+              <Link href="/services" className="rounded-xl px-3 py-1.5 text-sm border hover:bg-white/10">Paslaugos</Link>
+              <Link href="/cafe" className="rounded-xl px-3 py-1.5 text-sm border hover:bg-white/10">Kavinė</Link>
             </div>
           </nav>
         </header>
