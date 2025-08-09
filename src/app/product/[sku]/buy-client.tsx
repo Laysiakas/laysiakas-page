@@ -10,6 +10,7 @@ type P = {
 export default function BuyClient({ product }: P) {
   const router = useRouter();
   const { addItem, hasItem } = useCart();
+
   const [size, setSize] = useState(product.sizes[0] ?? "");
   const [adding, setAdding] = useState(false);
   const [buying, setBuying] = useState(false);
@@ -23,10 +24,13 @@ export default function BuyClient({ product }: P) {
 
   const buyNow = () => {
     if (!size || buying) return;
-    // if already in cart with this size, just go checkout
-    if (!hasItem(product.sku, size)) {
+
+    // Do NOT add if already present; just go checkout
+    const inCart = hasItem(product.sku, size);
+    if (!inCart) {
       addItem({ sku: product.sku, title: product.title, price: product.price, size, image: product.image });
     }
+
     setBuying(true);
     setTimeout(() => router.push("/checkout"), 250);
   };

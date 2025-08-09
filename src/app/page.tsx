@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Globe } from "lucide-react";
@@ -43,9 +44,11 @@ export default function Page() {
           <Button size="lg" className="rounded-2xl">
             Papasakok apie projektą <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <Button variant="outline" size="lg" className="rounded-2xl">
-            Peržiūrėti demo
-          </Button>
+          <Link href="/shop">
+            <Button variant="outline" size="lg" className="rounded-2xl">
+              Peržiūrėti demo
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -73,10 +76,10 @@ export default function Page() {
           <CardHeader><CardTitle>Susisiekime</CardTitle></CardHeader>
           <CardContent>
             <form onSubmit={submit} className="grid md:grid-cols-3 gap-3">
-              <Input placeholder="Vardas" value={name} onChange={e=>setName(e.target.value)} className="rounded-xl" />
-              <Input type="email" placeholder="El. paštas" value={email} onChange={e=>setEmail(e.target.value)} className="rounded-xl" />
+              <Input placeholder="Vardas" value={name} onChange={e => setName(e.target.value)} className="rounded-xl" />
+              <Input type="email" placeholder="El. paštas" value={email} onChange={e => setEmail(e.target.value)} className="rounded-xl" />
               <Button type="submit" className="rounded-xl">Siųsti</Button>
-              <Textarea placeholder="Trumpai apie projektą" value={msg} onChange={e=>setMsg(e.target.value)} className="md:col-span-3 rounded-xl" />
+              <Textarea placeholder="Trumpai apie projektą" value={msg} onChange={e => setMsg(e.target.value)} className="md:col-span-3 rounded-xl" />
               {ok && <p className="text-sm text-green-600 md:col-span-3">Gauta! Susisieksiu kuo greičiau.</p>}
             </form>
           </CardContent>

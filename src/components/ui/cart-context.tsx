@@ -13,9 +13,9 @@ type CartItem = {
 type CartCtx = {
   items: CartItem[];
   addItem: (item: Omit<CartItem, "qty">) => void;
+  hasItem: (sku: string, size: string) => boolean;
   removeOne: (sku: string, size: string) => void;
   removeLine: (sku: string, size: string) => void;
-  hasItem: (sku: string, size: string) => boolean;
   clear: () => void;
 };
 
@@ -23,6 +23,9 @@ const Ctx = createContext<CartCtx | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+
+  const hasItem = (sku: string, size: string) =>
+    items.some((x) => x.sku === sku && x.size === size);
 
   const addItem = (item: Omit<CartItem, "qty">) => {
     setItems((prev) => {
@@ -41,26 +44,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const i = prev.findIndex((x) => x.sku === sku && x.size === size);
       if (i === -1) return prev;
       const copy = [...prev];
-      if (copy[i].qty > 1) {
-        copy[i] = { ...copy[i], qty: copy[i].qty - 1 };
-        return copy;
-      }
-      copy.splice(i, 1);
+      if (copy[i].qty > 1) copy[i] = { ...copy[i], qty: copy[i].qty - 1 };
+      else copy.splice(i, 1);
       return copy;
     });
   };
 
-  const removeLine = (sku: string, size: string) => {
+  const removeLine = (sku: string, size: string) =>
     setItems((prev) => prev.filter((x) => !(x.sku === sku && x.size === size)));
-  };
-
-  const hasItem = (sku: string, size: string) =>
-    items.some((x) => x.sku === sku && x.size === size);
 
   const clear = () => setItems([]);
 
   return (
-    <Ctx.Provider value={{ items, addItem, removeOne, removeLine, hasItem, clear }}>
+    <Ctx.Provider value={{ items, addItem, hasItem, removeOne, removeLine, clear }}>
       {children}
     </Ctx.Provider>
   );

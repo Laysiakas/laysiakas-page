@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useCart } from "@/components/ui/cart-context"; // adjust path if needed
+import { useCart } from "../../components/ui/cart-context"; // adjust path if needed
 
 function eur(v: number) {
   return new Intl.NumberFormat("lt-LT", { style: "currency", currency: "EUR" }).format(v);
 }
 
 export default function CheckoutPage() {
-  const { items, removeOne, removeLine, clear } = useCart();
+  const { items, addItem, removeOne, removeLine, clear } = useCart();
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
 
   return (
@@ -37,19 +37,35 @@ export default function CheckoutPage() {
                   <div className="text-sm text-muted-foreground">Dydis: {i.size}</div>
                 </div>
 
+                {/* qty controls: − / count / + and remove × */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => removeOne(i.sku, i.size)}
                     className="h-8 w-8 rounded-md border hover:bg-white/10"
                     title="Sumažinti kiekį"
+                    aria-label="Sumažinti kiekį"
                   >
                     −
                   </button>
+
                   <div className="w-8 text-center">{i.qty}</div>
+
+                  <button
+                    onClick={() =>
+                      addItem({ sku: i.sku, title: i.title, price: i.price, size: i.size, image: i.image })
+                    }
+                    className="h-8 w-8 rounded-md border hover:bg-white/10"
+                    title="Padidinti kiekį"
+                    aria-label="Padidinti kiekį"
+                  >
+                    +
+                  </button>
+
                   <button
                     onClick={() => removeLine(i.sku, i.size)}
-                    className="h-8 w-8 rounded-md border hover:bg-white/10"
+                    className="ml-1 h-8 w-8 rounded-md border hover:bg-white/10"
                     title="Pašalinti eilutę"
+                    aria-label="Pašalinti eilutę"
                   >
                     ×
                   </button>
@@ -66,7 +82,9 @@ export default function CheckoutPage() {
           </div>
 
           <div className="mt-4">
-            <button className="text-sm underline text-muted-foreground" onClick={clear}>Išvalyti krepšelį</button>
+            <button className="text-sm underline text-muted-foreground" onClick={clear}>
+              Išvalyti krepšelį
+            </button>
           </div>
         </>
       )}
