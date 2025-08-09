@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import DemoCTA from "@/components/DemoCTA";
 
 const projects = [
   { title: "Mini e-shop demo", tag: "Next.js • CMS • Checkout", desc: "Katalogas, krepšelis, demo checkout.", link: "#" },
@@ -44,12 +45,9 @@ export default function Page() {
           <Button size="lg" className="rounded-2xl">
             Papasakok apie projektą <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <Link href="/shop">
-            <Button variant="outline" size="lg" className="rounded-2xl">
-              Peržiūrėti demo
-            </Button>
-          </Link>
+          <DemoCTA />
         </div>
+
       </section>
 
       <section className="max-w-6xl mx-auto px-4 py-12">
